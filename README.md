@@ -11,14 +11,19 @@ Before you can use SpotiPy, you will need to register an application with the Sp
 1. Run the `setup.py` file to install the required dependencies
 2. Go to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard) and log in to your Spotify account (or create a new account if you don't have one).
 3. Click the "Create An App" button and enter a name and description for your app.
-4. Once your app is created, note the client ID and client secret that are provided.
-5. Open the `.env` file in the SpotiPy directory and replace the `CLIENT_ID` and `CLIENT_SECRET` variables with the values from your Spotify app.
-6. Start the Flask server by running the following command:
+4. Input http://(IP):8000/callback for the redirect URI. (IP) is the IP address of the machine running the SpotiPy server
+</br> e.g. http://192.168.0.1:8000/callback</br>
+you can find your ip address [here](https://api.ipify.org/)
+5. Once your app is created, note the client ID and client secret that are provided.
+6. Open the `.env` file in the SpotiPy directory and replace the `CLIENT_ID` and `CLIENT_SECRET` variables with the values from your Spotify app.
+
+7. Start the Flask server by running the following command:
 ```shell
 python main.py
 ```
-7. access your flask server from [localhost:8000](http://localhost:8000)
-8. follow the on screen instructions to authorise your app to access your Spotify account 
+8. access your flask server from [localhost:8000](http://localhost:8000)
+
+9. follow the on screen instructions to authorise your app to access your Spotify account 
 
 ### Dependencies
 
