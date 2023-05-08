@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SpotiPy</title>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    </head>
+    <body>
+
+        <h1 id="title">Loading</h1>
+        <img id="album_image" src="" alt="Album Cover Image" style="display:inline-block; height:70px; visibility:hidden">
+
+        <div style="display:inline-block;">
+            <h2 id="song_name"></h2>
+            <h3 id="artist_name"></h3>
+        </div>
+
+    </body>
+
+
+    <!-- websocket imports -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    
+    <!-- update Song -->
+    <script type="text/javascript" charset="utf-8">
+
+        var socket = io();
+
+        socket.on('connect', function() {
+            socket.emit('message', { 'room': "{{ 1 }}" });
+
+        });
+
+        socket.on('updateSong', function(data) {
+
+            var albumImage = document.getElementById("album_image");
+            var songName = document.getElementById("song_name");
+            var artistName = document.getElementById("artist_name");
+            var title = document.getElementById("title");
+
+            //if song is playing
+            if(data.data.playing){
+                
+                albumImage.src = data.data.albumUrl;
+                albumImage.style.visibility = "visible";
+
+                songName.textContent = data.data.songName;
+                artistName.textContent = data.data.artistName;
+                title.textContent = "Currently Playing:";
+
+            //if no song playing 
+            }else if(data.data.playing == false){
+
+                albumImage.src = "";
+                albumImage.style.visibility = "hidden";
+
+                songName.textContent = "";
+                artistName.textContent = "";
+                title.textContent = "Nothing is currently playing.";
+            
+            //error getting song
+            }else{
+
+                albumImage.src = "";
+                albumImage.style.visibility = "hidden";
+
+                songName.textContent = "";
+                artistName.textContent = "";
+                title.textContent = "Could not get currently playing song.";
+
+            }
+            
+        });
+
+    </script>
+
+
+</html>
